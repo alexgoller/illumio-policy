@@ -7,11 +7,11 @@ scopes:
   - label:
       env: prod
 rules:
-- name: 'All Workloads → All Workloads : All Services'
+- name: 'All Workloads → All Workloads : https'
   enabled: true
   consumers:
   - actors: ams
   providers:
   - actors: ams
   services:
-  - name: All Services
+  - name: https
