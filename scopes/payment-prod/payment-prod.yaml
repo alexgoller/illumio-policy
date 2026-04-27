@@ -1,0 +1,42 @@
+name: payment | prod
+description: null
+enabled: true
+scopes:
+- - label:
+      app: payment
+  - label:
+      env: prod
+rules:
+- name: /orgs/1/sec_policy/active/rule_sets/989/sec_rules/1653
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - actors: ams
+  services:
+  - name: All Services
+- name: /orgs/1/sec_policy/active/rule_sets/989/sec_rules/1655
+  enabled: true
+  consumers:
+  - ip_list:
+      name: hq
+  providers:
+  - label:
+      role: web
+  services:
+  - name: https
+- name: /orgs/1/sec_policy/active/rule_sets/989/sec_rules/1661
+  enabled: true
+  consumers:
+  - label:
+      app: vdi
+  - label:
+      env: users
+  - label:
+      role: admin
+  providers:
+  - label:
+      role: web
+  services:
+  - name: https
+  unscoped_consumers: true
