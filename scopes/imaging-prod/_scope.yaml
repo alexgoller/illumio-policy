@@ -1,0 +1,6 @@
+name: imaging-prod
+labels:
+  app: imaging
+  env: prod
+owners: []
+description: Auto-generated scope for imaging-prod
