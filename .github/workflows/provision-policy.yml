@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   provision:
-    name: Provision to PCE Draft
+    name: Provision to PCE
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,17 +33,14 @@ jobs:
       - name: Check for bot export commit
         id: bot
         run: |
-          # Export commits (plugin syncing PCE -> Git) start with "policy-gitops:"
-          # or are authored by the policy-gitops bot. Skip provisioning for these —
-          # the content already came FROM the PCE and must not be sent back.
           MSG=$(git log --no-merges -1 --format='%s' 2>/dev/null || git log -1 --format='%s')
           AUTHOR=$(git log --no-merges -1 --format='%an' 2>/dev/null || git log -1 --format='%an')
           if [[ "$MSG" == policy-gitops:* ]] || [[ "$AUTHOR" == "policy-gitops" ]]; then
             echo "skip=true" >> $GITHUB_OUTPUT
-            echo "Skipping provision: bot export commit detected (author=$AUTHOR)"
+            echo "Skipping: bot export commit (author=$AUTHOR)"
           else
             echo "skip=false" >> $GITHUB_OUTPUT
-            echo "Human commit detected — will provision (author=$AUTHOR)"
+            echo "Human commit — will provision (author=$AUTHOR)"
           fi
 
       - name: Setup Python
@@ -56,7 +53,7 @@ jobs:
         if: steps.changes.outputs.count != '0' && steps.bot.outputs.skip != 'true'
         run: pip install illumio pyyaml
 
-      - name: Provision to PCE draft
+      - name: Provision to PCE (draft + active)
         if: steps.changes.outputs.count != '0' && steps.bot.outputs.skip != 'true'
         env:
           PCE_HOST: ${{ secrets.PCE_HOST }}
@@ -64,14 +61,6 @@ jobs:
           PCE_ORG_ID: ${{ secrets.PCE_ORG_ID }}
           PCE_API_KEY: ${{ secrets.PCE_API_KEY }}
           PCE_API_SECRET: ${{ secrets.PCE_API_SECRET }}
-          CHANGED_FILES: ${{ steps.changes.outputs.files }}
-          # Pass the merge commit message as the PCE provision description so
-          # the active policy history shows the PR title rather than a generic count.
-          PROVISION_DESCRIPTION: ${{ github.event.head_commit.message }}
-          # Set to "false" to leave changes in draft for manual review.
           AUTO_PROVISION: "true"
+          CHANGED_FILES: ${{ steps.changes.outputs.files }}
         run: python3 .github/scripts/provision.py
-
-      - name: Summary
-        if: always()
-        run: echo "Provision complete — check PCE active policy"
