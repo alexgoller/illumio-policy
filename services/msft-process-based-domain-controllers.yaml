@@ -1,5 +1,5 @@
 name: msft process based - domain controllers
-description: null
+description: ''
 service_ports: []
 windows_services:
 - port: 123

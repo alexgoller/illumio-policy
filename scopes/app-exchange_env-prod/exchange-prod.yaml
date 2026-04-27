@@ -1,5 +1,5 @@
 name: exchange | prod
-description: null
+description: ''
 enabled: true
 scopes:
 - - label:

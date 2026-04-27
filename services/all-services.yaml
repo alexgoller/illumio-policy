@@ -1,4 +1,4 @@
 name: All Services
-description: null
+description: ''
 service_ports:
 - proto: '-1'

@@ -1,5 +1,5 @@
 name: ordering | prod
-description: null
+description: ''
 enabled: true
 scopes:
 - - label:
