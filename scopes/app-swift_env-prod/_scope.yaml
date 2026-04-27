@@ -1,0 +1,6 @@
+name: app-swift_env-prod
+labels:
+  app: swift
+  env: prod
+owners: []
+description: Auto-generated scope for app-swift_env-prod
