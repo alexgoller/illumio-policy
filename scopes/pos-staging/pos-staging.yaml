@@ -7,7 +7,7 @@ scopes:
   - label:
       env: staging
 rules:
-- name: /orgs/1/sec_policy/active/rule_sets/983/sec_rules/1635
+- name: /orgs/1/sec_policy/draft/rule_sets/983/sec_rules/1635
   enabled: true
   consumers:
   - actors: ams
@@ -15,7 +15,7 @@ rules:
   - actors: ams
   services:
   - name: All Services
-- name: /orgs/1/sec_policy/active/rule_sets/983/sec_rules/1637
+- name: /orgs/1/sec_policy/draft/rule_sets/983/sec_rules/1637
   enabled: true
   consumers:
   - label:
