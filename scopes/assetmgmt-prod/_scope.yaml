@@ -1,0 +1,6 @@
+name: assetmgmt-prod
+labels:
+  app: assetmgmt
+  env: prod
+owners: []
+description: Auto-generated scope for assetmgmt-prod
