@@ -1,0 +1,5 @@
+name: nagios
+description: Nagios
+service_ports:
+- port: 5666
+  proto: tcp

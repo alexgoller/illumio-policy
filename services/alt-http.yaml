@@ -1,0 +1,5 @@
+name: alt-http
+description: Alternate HTTP
+service_ports:
+- port: 8080
+  proto: tcp

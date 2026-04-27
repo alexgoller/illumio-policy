@@ -1,0 +1,5 @@
+name: mysql
+description: An open-source relational database management system (RDBMS)
+service_ports:
+- port: 3306
+  proto: tcp

@@ -1,0 +1,7 @@
+name: sftp
+description: Simple File Transfer Protocol
+service_ports:
+- port: 115
+  proto: tcp
+- port: 115
+  proto: udp

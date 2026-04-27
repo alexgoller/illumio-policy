@@ -1,0 +1,7 @@
+name: mysql-cluster
+description: An open-source relational database management system (RDBMS)
+service_ports:
+- port: 1186
+  proto: udp
+- port: 1186
+  proto: tcp

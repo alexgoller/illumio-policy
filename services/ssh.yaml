@@ -1,0 +1,7 @@
+name: ssh
+description: Secure Shell
+service_ports:
+- port: 22
+  proto: udp
+- port: 22
+  proto: tcp

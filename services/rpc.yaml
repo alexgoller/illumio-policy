@@ -1,0 +1,6 @@
+name: rpc
+description: Resolves Remote Procedure Call (RPC) interfaces identifiers to transport
+  endpoints.
+service_ports:
+- port: 135
+  proto: tcp

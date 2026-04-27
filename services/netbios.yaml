@@ -1,0 +1,10 @@
+name: netbios
+description: NetBIOS protocol TCP, covers the Name, Datagram and Session Services.
+service_ports:
+- port: 137
+  to_port: 138
+  proto: udp
+- port: 137
+  proto: tcp
+- port: 139
+  proto: tcp

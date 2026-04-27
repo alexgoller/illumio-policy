@@ -1,0 +1,5 @@
+name: splunk-data-secure
+description: Secure Splunk Indexer inbound data port from forwarders
+service_ports:
+- port: 9998
+  proto: tcp

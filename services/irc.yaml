@@ -1,0 +1,9 @@
+name: irc
+description: Internet Relay Chat
+service_ports:
+- port: 6667
+  proto: udp
+- port: 6667
+  proto: tcp
+- port: 194
+  proto: tcp

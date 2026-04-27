@@ -1,0 +1,7 @@
+name: rtsp
+description: Real-Time Streaming Protocol
+service_ports:
+- port: 554
+  proto: udp
+- port: 554
+  proto: tcp

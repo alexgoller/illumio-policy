@@ -1,0 +1,30 @@
+name: plugger-auto | procurement | prod | strict
+description: '[rule-scheduler] Weekend lockdown'
+enabled: false
+scopes:
+- - label:
+      app: procurement
+  - label:
+      env: prod
+rules:
+- name: /orgs/1/sec_policy/active/rule_sets/955/sec_rules/1609
+  enabled: true
+  consumers:
+  - label:
+      role: processing
+  providers:
+  - label:
+      role: db
+  services:
+  - name: mysql
+- name: /orgs/1/sec_policy/active/rule_sets/955/sec_rules/1611
+  enabled: true
+  consumers:
+  - label:
+      role: web
+  providers:
+  - label:
+      role: processing
+  services:
+  - port: 8070
+    proto: tcp

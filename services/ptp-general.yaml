@@ -1,0 +1,7 @@
+name: ptp-general
+description: Precision Time Protocol General
+service_ports:
+- port: 320
+  proto: udp
+- port: 320
+  proto: tcp

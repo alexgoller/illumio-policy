@@ -1,0 +1,7 @@
+name: postgresql
+description: Open-source Object-Relational DBMS supporting almost all SQL constructs
+service_ports:
+- port: 5432
+  proto: udp
+- port: 5432
+  proto: tcp

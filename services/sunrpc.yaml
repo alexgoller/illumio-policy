@@ -1,0 +1,7 @@
+name: sunrpc
+description: Remote Procedure Call
+service_ports:
+- port: 111
+  proto: udp
+- port: 111
+  proto: tcp

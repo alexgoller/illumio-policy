@@ -1,0 +1,5 @@
+name: ftp-data
+description: File transfer protocol Data
+service_ports:
+- port: 20
+  proto: tcp

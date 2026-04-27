@@ -1,0 +1,6 @@
+name: winrm
+description: Windows Remote Management (WinRM) service implements the WS-Management
+  protocol for remote management.
+service_ports:
+- port: 5985
+  proto: tcp

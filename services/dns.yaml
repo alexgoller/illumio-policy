@@ -1,0 +1,7 @@
+name: dns
+description: Domain Name System
+service_ports:
+- port: 53
+  proto: tcp
+- port: 53
+  proto: udp

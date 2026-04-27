@@ -1,0 +1,4 @@
+name: Client Net 123
+description: ''
+ip_ranges:
+- from_ip: 1.2.3.0/24

@@ -1,0 +1,5 @@
+name: iscsi
+description: ISCSI
+service_ports:
+- port: 3260
+  proto: tcp

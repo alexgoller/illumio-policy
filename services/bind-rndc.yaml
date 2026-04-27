@@ -1,0 +1,5 @@
+name: bind-rndc
+description: BIND Remote Network Domain Control
+service_ports:
+- port: 953
+  proto: tcp

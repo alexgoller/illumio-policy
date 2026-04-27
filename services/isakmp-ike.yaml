@@ -1,0 +1,7 @@
+name: isakmp-ike
+description: Internet Security Association and Key Management Protocol
+service_ports:
+- port: 500
+  proto: udp
+- port: 500
+  proto: tcp

@@ -1,0 +1,5 @@
+name: MSFT Domain Controllers
+description: TCP and UDP MSFT Domain Controllers ports
+service_ports:
+- port: 135
+  proto: tcp

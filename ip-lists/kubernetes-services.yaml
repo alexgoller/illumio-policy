@@ -1,0 +1,4 @@
+name: Kubernetes Services
+description: ''
+ip_ranges:
+- from_ip: 10.100.0.0/16

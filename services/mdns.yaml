@@ -1,0 +1,5 @@
+name: mdns
+description: Multicast DNS
+service_ports:
+- port: 5353
+  proto: udp

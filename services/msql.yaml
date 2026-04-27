@@ -1,0 +1,7 @@
+name: msql
+description: A set of ports that allows SQL communication between SQL hosts or client
+  access. Use in conjunction with the MS FoC service to enable SQL fail-over cluster
+  communication.
+service_ports:
+- port: 1433
+  proto: tcp

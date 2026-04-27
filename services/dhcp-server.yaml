@@ -1,0 +1,7 @@
+name: dhcp-server
+description: Dynamic Host Control Protocol/BOOTP Server
+service_ports:
+- port: 67
+  proto: udp
+- port: 67
+  proto: tcp

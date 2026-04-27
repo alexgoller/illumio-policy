@@ -1,0 +1,5 @@
+name: splunk-mgmt
+description: Splunk Management/Rest API.
+service_ports:
+- port: 8089
+  proto: tcp

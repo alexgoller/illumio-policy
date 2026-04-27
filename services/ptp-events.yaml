@@ -1,0 +1,7 @@
+name: ptp-events
+description: Precision Time Protocol Events
+service_ports:
+- port: 319
+  proto: udp
+- port: 319
+  proto: tcp

@@ -1,0 +1,5 @@
+name: https
+description: Secure HTTP
+service_ports:
+- port: 443
+  proto: tcp

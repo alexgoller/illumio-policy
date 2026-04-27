@@ -1,0 +1,6 @@
+name: shareddb-prod
+labels:
+  app: shareddb
+  env: prod
+owners: []
+description: Auto-generated scope for shareddb-prod

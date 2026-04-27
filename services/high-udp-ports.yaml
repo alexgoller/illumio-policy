@@ -1,0 +1,6 @@
+name: high-udp-ports
+description: IANA and RFC 6335 UDP High Port Range 49152-65535 for dynamic ports.
+service_ports:
+- port: 49152
+  to_port: 65535
+  proto: udp

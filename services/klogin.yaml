@@ -1,0 +1,7 @@
+name: klogin
+description: Kerberos Login
+service_ports:
+- port: 543
+  proto: tcp
+- port: 543
+  proto: udp

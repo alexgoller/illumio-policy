@@ -1,0 +1,7 @@
+name: kerberov4
+description: Kerberos Version 4
+service_ports:
+- port: 750
+  proto: udp
+- port: 750
+  proto: tcp

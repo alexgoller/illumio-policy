@@ -1,0 +1,7 @@
+name: metasploit
+description: Default listener for metasploit
+service_ports:
+- port: 4444
+  proto: udp
+- port: 4444
+  proto: tcp

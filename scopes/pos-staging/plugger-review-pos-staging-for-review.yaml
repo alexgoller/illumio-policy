@@ -1,0 +1,21 @@
+name: plugger-review | pos | staging | FOR REVIEW
+description: '[rule-scheduler] Weekend lockdown'
+enabled: false
+scopes:
+- - label:
+      app: pos
+  - label:
+      env: staging
+rules:
+- name: /orgs/1/sec_policy/active/rule_sets/941/sec_rules/1591
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - actors: ams
+  services:
+  - name: ftp-data
+  - name: ftp-control
+  - name: rdp
+  - port: 138
+    proto: tcp

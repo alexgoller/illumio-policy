@@ -1,0 +1,5 @@
+name: splunk-data
+description: Splunk Indexer inbound data port from forwarders
+service_ports:
+- port: 9997
+  proto: tcp

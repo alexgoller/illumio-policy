@@ -1,0 +1,24 @@
+name: plugger-auto | shareddb | prod | from cart | strict
+description: '[rule-scheduler] Weekend lockdown'
+enabled: false
+scopes:
+- - label:
+      app: shareddb
+  - label:
+      env: prod
+rules:
+- name: /orgs/1/sec_policy/active/rule_sets/949/sec_rules/1603
+  enabled: true
+  consumers:
+  - label:
+      role: processing
+  - label:
+      app: cart
+  - label:
+      env: prod
+  providers:
+  - label:
+      role: db
+  services:
+  - name: mysql
+  unscoped_consumers: true

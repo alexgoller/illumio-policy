@@ -1,0 +1,5 @@
+name: S-ClaudeCodeTest
+description: Test service created by Claude Code
+service_ports:
+- port: 9999
+  proto: tcp

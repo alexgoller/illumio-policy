@@ -1,0 +1,7 @@
+name: tftp
+description: Trivial File Transfer Protocol
+service_ports:
+- port: 69
+  proto: udp
+- port: 69
+  proto: tcp

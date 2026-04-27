@@ -1,0 +1,7 @@
+name: smb
+description: Server Message Block (SMB).
+service_ports:
+- port: 445
+  proto: tcp
+- port: 445
+  proto: udp

@@ -1,0 +1,4 @@
+name: All Services
+description: null
+service_ports:
+- proto: '-1'

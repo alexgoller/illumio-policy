@@ -1,0 +1,5 @@
+name: imap
+description: Internet Message Access Protocol
+service_ports:
+- port: 143
+  proto: tcp

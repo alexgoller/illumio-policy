@@ -1,0 +1,4 @@
+name: ICMP-All
+description: All ICMP traffic
+service_ports:
+- proto: icmp

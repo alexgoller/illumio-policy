@@ -1,0 +1,5 @@
+name: snmp-trap
+description: Simple Network Management Protocol Trap
+service_ports:
+- port: 162
+  proto: udp

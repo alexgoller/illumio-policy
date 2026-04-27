@@ -1,0 +1,7 @@
+name: ldap
+description: Lightweight Directory Access Protocol
+service_ports:
+- port: 389
+  proto: tcp
+- port: 389
+  proto: udp

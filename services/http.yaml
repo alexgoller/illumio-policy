@@ -1,0 +1,5 @@
+name: http
+description: Hyper Text Transfer Protocol
+service_ports:
+- port: 80
+  proto: tcp

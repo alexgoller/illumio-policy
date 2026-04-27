@@ -1,0 +1,5 @@
+name: mad-web-services
+description: Active Directory Management Gateway Service
+service_ports:
+- port: 9389
+  proto: tcp

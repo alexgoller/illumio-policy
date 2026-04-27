@@ -1,0 +1,5 @@
+name: Powershell allowed internet destinations
+description: ''
+ip_ranges: []
+fqdns:
+- '*.microsoft.com'

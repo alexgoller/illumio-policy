@@ -1,0 +1,6 @@
+name: msql-broker
+description: There is no default port for SQL Server Service Broker, but this is the
+  conventional configuration used in Microsoft's online examples.
+service_ports:
+- port: 4022
+  proto: tcp

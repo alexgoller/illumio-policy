@@ -1,0 +1,6 @@
+name: icmp
+description: ICMP and ICMP v6
+service_ports:
+- proto: icmp
+- proto: icmp
+  icmp_type: 58

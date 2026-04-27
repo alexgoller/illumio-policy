@@ -1,0 +1,7 @@
+name: syslog
+description: System Logging
+service_ports:
+- port: 514
+  proto: udp
+- port: 514
+  proto: tcp

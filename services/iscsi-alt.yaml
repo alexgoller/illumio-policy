@@ -1,0 +1,5 @@
+name: iscsi-alt
+description: ISCSI Alternate port
+service_ports:
+- port: 860
+  proto: tcp

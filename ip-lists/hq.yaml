@@ -1,0 +1,4 @@
+name: hq
+description: ''
+ip_ranges:
+- from_ip: 45.54.45.0/24

@@ -1,0 +1,5 @@
+name: mwsus
+description: Windows Server Update Service (WSUS) for patching.
+service_ports:
+- port: 8530
+  proto: tcp

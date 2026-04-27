@@ -1,0 +1,7 @@
+name: nfs
+description: Network File System
+service_ports:
+- port: 2049
+  proto: udp
+- port: 2049
+  proto: tcp

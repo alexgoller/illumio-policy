@@ -1,0 +1,7 @@
+name: teamviewer
+description: TeamViewer
+service_ports:
+- port: 5938
+  proto: udp
+- port: 5938
+  proto: tcp

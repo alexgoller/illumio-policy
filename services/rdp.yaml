@@ -1,0 +1,7 @@
+name: rdp
+description: Remote Desktop Protocol
+service_ports:
+- port: 3389
+  proto: udp
+- port: 3389
+  proto: tcp

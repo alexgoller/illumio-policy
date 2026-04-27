@@ -1,0 +1,4 @@
+name: Any (0.0.0.0/0)
+description: IP list for any IP address
+ip_ranges:
+- from_ip: 0.0.0.0/0

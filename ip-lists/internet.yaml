@@ -1,0 +1,17 @@
+name: internet
+description: ''
+ip_ranges:
+- from_ip: 0.0.0.0/0
+- from_ip: 10.0.0.0/8
+  exclusion: true
+- from_ip: 172.16.0.0/12
+  exclusion: true
+- from_ip: 192.168.0.0/16
+  exclusion: true
+- from_ip: 169.254.0.0/16
+  exclusion: true
+- from_ip: 224.0.0.0
+  to_ip: 239.255.255.255
+  exclusion: true
+- from_ip: 45.54.45.0/24
+  exclusion: true

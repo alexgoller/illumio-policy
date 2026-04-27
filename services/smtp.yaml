@@ -1,0 +1,7 @@
+name: smtp
+description: Simple Mail Transfer Protocol
+service_ports:
+- port: 25
+  proto: tcp
+- port: 25
+  proto: udp

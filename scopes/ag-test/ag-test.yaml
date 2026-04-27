@@ -1,0 +1,43 @@
+name: ag-test
+description: '[rule-scheduler] AG Test foo'
+enabled: false
+scopes:
+- - label:
+      app: ag-test
+rules:
+- name: /orgs/1/sec_policy/active/rule_sets/923/sec_rules/1557
+  enabled: true
+  consumers:
+  - ip_list:
+      name: Any (0.0.0.0/0 and ::/0)
+  providers:
+  - label:
+      role: docker
+  services:
+  - name: ssh
+- name: /orgs/1/sec_policy/active/rule_sets/923/sec_rules/1562
+  enabled: false
+  consumers:
+  - ip_list:
+      name: Any (0.0.0.0/0 and ::/0)
+  providers:
+  - label:
+      role: docker
+  services:
+  - port: 8081
+    proto: tcp
+  - port: 81
+    proto: tcp
+  unscoped_consumers: true
+- name: /orgs/1/sec_policy/active/rule_sets/923/sec_rules/1559
+  enabled: true
+  consumers:
+  - ip_list:
+      name: Any (0.0.0.0/0 and ::/0)
+  providers:
+  - label:
+      role: docker
+  services:
+  - name: alt-http
+  - name: http
+  unscoped_consumers: true

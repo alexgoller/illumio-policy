@@ -1,0 +1,7 @@
+name: telnet
+description: Telnet
+service_ports:
+- port: 23
+  proto: udp
+- port: 23
+  proto: tcp

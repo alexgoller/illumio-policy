@@ -1,0 +1,5 @@
+name: popv3
+description: Post Office Protocol v3
+service_ports:
+- port: 110
+  proto: tcp

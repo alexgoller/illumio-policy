@@ -1,0 +1,6 @@
+name: mongodb-cluster
+description: MongoDB Clustering Ports
+service_ports:
+- port: 27018
+  to_port: 27019
+  proto: tcp

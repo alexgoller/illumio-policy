@@ -1,0 +1,4 @@
+name: link local
+description: ''
+ip_ranges:
+- from_ip: 169.254.0.0/16

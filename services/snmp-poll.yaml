@@ -1,0 +1,7 @@
+name: snmp-poll
+description: Simple Network Management Protocol
+service_ports:
+- port: 161
+  proto: udp
+- port: 161
+  proto: tcp

@@ -1,0 +1,6 @@
+name: m.net-tcp-port-sharing
+description: Microsoft Net.TCP Port Sharing Service. This capability allows HTTP applications
+  to coexist on the same physical machine in separate, isolated processes.
+service_ports:
+- port: 808
+  proto: tcp

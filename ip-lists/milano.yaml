@@ -1,0 +1,5 @@
+name: Milano
+description: ''
+ip_ranges:
+- from_ip: 10.1.1.0/24
+- from_ip: 10.1.2.0/24

@@ -1,0 +1,5 @@
+name: nat-t
+description: Network Address Translation - Traversal
+service_ports:
+- port: 4500
+  proto: udp

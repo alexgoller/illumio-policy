@@ -1,0 +1,5 @@
+name: popv3s
+description: Secure POPv3
+service_ports:
+- port: 995
+  proto: tcp

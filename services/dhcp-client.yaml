@@ -1,0 +1,7 @@
+name: dhcp-client
+description: Dynamic Host Control Protocol/BOOTP Client
+service_ports:
+- port: 68
+  proto: udp
+- port: 68
+  proto: tcp

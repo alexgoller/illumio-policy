@@ -1,0 +1,7 @@
+name: dntls
+description: DNS over TLS
+service_ports:
+- port: 853
+  proto: tcp
+- port: 853
+  proto: udp

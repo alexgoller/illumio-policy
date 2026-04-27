@@ -1,0 +1,6 @@
+name: pos-staging
+labels:
+  app: pos
+  env: staging
+owners: []
+description: Auto-generated scope for pos-staging

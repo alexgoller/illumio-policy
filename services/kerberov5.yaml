@@ -1,0 +1,7 @@
+name: kerberov5
+description: Kerberos Version 5
+service_ports:
+- port: 464
+  proto: udp
+- port: 464
+  proto: tcp

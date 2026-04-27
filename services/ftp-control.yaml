@@ -1,0 +1,5 @@
+name: ftp-control
+description: File transfer protocol Control Port
+service_ports:
+- port: 21
+  proto: tcp

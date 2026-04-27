@@ -1,0 +1,5 @@
+name: smtps
+description: Secure SMTP
+service_ports:
+- port: 465
+  proto: tcp

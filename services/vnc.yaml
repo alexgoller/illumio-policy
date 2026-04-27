@@ -1,0 +1,7 @@
+name: vnc
+description: Virtual Network Computing
+service_ports:
+- port: 5900
+  proto: udp
+- port: 5900
+  proto: tcp

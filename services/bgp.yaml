@@ -1,0 +1,5 @@
+name: bgp
+description: Border Gateway Protocol
+service_ports:
+- port: 179
+  proto: tcp

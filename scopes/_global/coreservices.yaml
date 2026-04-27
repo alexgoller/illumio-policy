@@ -1,0 +1,48 @@
+name: coreservices
+description: ''
+enabled: true
+scopes: []
+rules:
+- name: /orgs/1/sec_policy/active/rule_sets/3/sec_rules/9
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - label:
+      role: time
+  services:
+  - name: ntp
+- name: /orgs/1/sec_policy/active/rule_sets/3/sec_rules/7
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - label:
+      role: syslog
+  - label:
+      app: soc
+  services:
+  - name: syslog
+- name: /orgs/1/sec_policy/active/rule_sets/3/sec_rules/5
+  enabled: true
+  consumers:
+  - label:
+      role: nagios
+  - label:
+      app: monitoring
+  providers:
+  - actors: ams
+  services:
+  - name: nagios
+deny_rules:
+- name: /orgs/1/sec_policy/active/rule_sets/3/deny_rules/103
+  enabled: true
+  consumers:
+  - label:
+      app: laptop
+  providers:
+  - label_group:
+      href: /orgs/1/sec_policy/active/label_groups/f05e1114-4975-481c-9bc1-a34444e53718
+  services:
+  - name: https
+  type: deny

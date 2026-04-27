@@ -1,0 +1,5 @@
+name: mongodb
+description: Mongo DB
+service_ports:
+- port: 27017
+  proto: tcp

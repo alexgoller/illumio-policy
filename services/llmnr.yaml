@@ -1,0 +1,5 @@
+name: llmnr
+description: Link Local Multicast Name Resolution
+service_ports:
+- port: 5355
+  proto: udp

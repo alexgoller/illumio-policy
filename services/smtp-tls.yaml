@@ -1,0 +1,7 @@
+name: smtp-tls
+description: Simple Mail Transfer Protocol over TLS
+service_ports:
+- port: 587
+  proto: tcp
+- port: 587
+  proto: udp

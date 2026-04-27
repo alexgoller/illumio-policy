@@ -1,0 +1,5 @@
+name: splunk-web
+description: Splunk Web Access
+service_ports:
+- port: 8000
+  proto: tcp

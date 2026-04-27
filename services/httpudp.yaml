@@ -1,0 +1,5 @@
+name: httpudp
+description: Secure HTTP UDP for QUIC and HTTP/3
+service_ports:
+- port: 443
+  proto: udp

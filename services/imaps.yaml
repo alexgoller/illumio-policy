@@ -1,0 +1,5 @@
+name: imaps
+description: Secure IMAP
+service_ports:
+- port: 993
+  proto: tcp

@@ -1,0 +1,5 @@
+name: mwsusecure
+description: Secure Windows Server Update Service (WSUS) for patching
+service_ports:
+- port: 8531
+  proto: tcp

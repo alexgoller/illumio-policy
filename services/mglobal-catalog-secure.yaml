@@ -1,0 +1,5 @@
+name: mglobal-catalog-secure
+description: Microsoft Global Catalog Secure
+service_ports:
+- port: 3269
+  proto: tcp

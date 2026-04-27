@@ -1,0 +1,14 @@
+name: Default
+description: null
+enabled: true
+scopes: []
+rules:
+- name: Allow outbound connections
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - ip_list:
+      name: Any (0.0.0.0/0 and ::/0)
+  services:
+  - name: All Services

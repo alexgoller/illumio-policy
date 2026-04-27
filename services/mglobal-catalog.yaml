@@ -1,0 +1,5 @@
+name: mglobal-catalog
+description: Microsoft Global Catalog
+service_ports:
+- port: 3268
+  proto: tcp

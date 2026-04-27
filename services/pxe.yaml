@@ -1,0 +1,7 @@
+name: pxe
+description: Preboot Execution Environment
+service_ports:
+- port: 4011
+  proto: tcp
+- port: 4011
+  proto: udp

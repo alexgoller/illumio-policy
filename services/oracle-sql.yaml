@@ -1,0 +1,5 @@
+name: oracle-sql
+description: Default listener for metasploit
+service_ports:
+- port: 1521
+  proto: tcp

@@ -1,0 +1,4 @@
+name: Endpoints
+description: ''
+ip_ranges:
+- from_ip: 10.10.11.0/24

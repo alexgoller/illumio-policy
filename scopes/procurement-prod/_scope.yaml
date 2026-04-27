@@ -1,0 +1,6 @@
+name: procurement-prod
+labels:
+  app: procurement
+  env: prod
+owners: []
+description: Auto-generated scope for procurement-prod

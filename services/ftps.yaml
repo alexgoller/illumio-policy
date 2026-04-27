@@ -1,0 +1,9 @@
+name: ftps
+description: Secure FTP Server Data
+service_ports:
+- port: 989
+  to_port: 990
+  proto: udp
+- port: 989
+  to_port: 990
+  proto: tcp

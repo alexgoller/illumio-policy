@@ -1,0 +1,7 @@
+name: mcluster
+description: Microsoft Fail-over Clustering - cluster communication
+service_ports:
+- port: 3343
+  proto: udp
+- port: 3343
+  proto: tcp

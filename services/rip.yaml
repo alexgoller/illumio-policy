@@ -1,0 +1,5 @@
+name: rip
+description: Routing Information Protocol
+service_ports:
+- port: 520
+  proto: udp

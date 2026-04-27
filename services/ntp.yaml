@@ -1,0 +1,7 @@
+name: ntp
+description: Network Time Protocol
+service_ports:
+- port: 123
+  proto: tcp
+- port: 123
+  proto: udp

@@ -1,0 +1,7 @@
+name: pptp
+description: Point-to-Point Tunneling Protocol
+service_ports:
+- port: 1723
+  proto: udp
+- port: 1723
+  proto: tcp

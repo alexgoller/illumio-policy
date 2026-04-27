@@ -1,0 +1,7 @@
+name: lpd-lpr
+description: Line Printer Daemon-Line Printer Remote
+service_ports:
+- port: 515
+  proto: udp
+- port: 515
+  proto: tcp

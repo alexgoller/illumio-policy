@@ -1,0 +1,7 @@
+name: ircs
+description: Secure Internet Relay Chat
+service_ports:
+- port: 994
+  proto: udp
+- port: 994
+  proto: tcp

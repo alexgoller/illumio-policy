@@ -1,0 +1,5 @@
+name: rlogin
+description: Remote Login
+service_ports:
+- port: 513
+  proto: tcp

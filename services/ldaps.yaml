@@ -1,0 +1,7 @@
+name: ldaps
+description: Secure LDAP
+service_ports:
+- port: 636
+  proto: udp
+- port: 636
+  proto: tcp

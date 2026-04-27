@@ -1,0 +1,5 @@
+name: kms
+description: Default Port for MS Key Management Services
+service_ports:
+- port: 1688
+  proto: tcp

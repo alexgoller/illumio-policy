@@ -1,0 +1,7 @@
+name: kerberocdc
+description: Kerberos Certificate Distribution Center
+service_ports:
+- port: 223
+  proto: udp
+- port: 223
+  proto: tcp
