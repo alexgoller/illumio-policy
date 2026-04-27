@@ -1,0 +1,39 @@
+name: exchange | prod
+description: null
+enabled: true
+scopes:
+- - label:
+      app: exchange
+  - label:
+      env: prod
+rules:
+- name: 'vdi,users,admin → mailserver : rdp (extra-scope)'
+  enabled: true
+  consumers:
+  - label:
+      app: vdi
+  - label:
+      env: users
+  - label:
+      role: admin
+  providers:
+  - label:
+      role: mailserver
+  services:
+  - name: rdp
+  unscoped_consumers: true
+- name: 'vdi,users,admin → edgetransport : rdp (extra-scope)'
+  enabled: true
+  consumers:
+  - label:
+      app: vdi
+  - label:
+      env: users
+  - label:
+      role: admin
+  providers:
+  - label:
+      role: edgetransport
+  services:
+  - name: rdp
+  unscoped_consumers: true
