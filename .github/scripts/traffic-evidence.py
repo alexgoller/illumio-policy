@@ -236,14 +236,11 @@ def query_traffic_for_rule(pce, rule: dict, scope_cfg: dict, global_config: dict
 
     services = rule.get("services", [])
 
-    # Empty services list means "All Services" — can't filter by port
-    if not services:
-        return {"traffic_found": False, "reason": "All Services rule — no port filter available"}
+    # Empty services list = "All Services" in Illumio — query all flows, no port filter.
+    all_services = not services
+    ports = [] if all_services else _resolve_ports(services, service_port_map or {}, exclude_ports)
 
-    ports = _resolve_ports(services, service_port_map or {}, exclude_ports)
-
-    if not ports:
-        # Named services that weren't found in the map, or only non-port services (ICMP etc.)
+    if not all_services and not ports:
         named = [s["name"] for s in services if isinstance(s, dict) and "name" in s]
         if named:
             return {"traffic_found": False,
@@ -273,8 +270,11 @@ def query_traffic_for_rule(pce, rule: dict, scope_cfg: dict, global_config: dict
 
             service = flow.get("service", {})
             flow_port = service.get("port") if isinstance(service, dict) else None
+            flow_proto = service.get("proto", "?") if isinstance(service, dict) else "?"
 
-            if flow_port not in ports:
+            # Port filter: skip flows not matching our port list.
+            # All-Services rules have no port list — include every flow.
+            if not all_services and flow_port not in ports:
                 continue
 
             src = flow.get("src", {})
@@ -285,20 +285,22 @@ def query_traffic_for_rule(pce, rule: dict, scope_cfg: dict, global_config: dict
             src_name = src.get("workload", {}).get("hostname", src.get("ip", "?"))
             dst_name = dst.get("workload", {}).get("hostname", dst.get("ip", "?"))
 
+            port_label = f"{flow_port}/{flow_proto}" if flow_port else f"?/{flow_proto}"
             matching_flows.append({
                 "src": src_name,
                 "dst": dst_name,
-                "port": f"{flow_port}/{service.get('proto', '?')}",
+                "port": port_label,
                 "connections": num,
                 "decision": flow.get("policy_decision", "unknown"),
             })
 
         if total_connections < min_connections:
+            scope_desc = "any port" if all_services else f"ports {ports}"
             return {
                 "traffic_found": False,
                 "blocked_connections": total_connections,
                 "reason": (
-                    f"No blocked traffic found on ports {ports} in last {lookback_days} days"
+                    f"No blocked traffic found ({scope_desc}) in last {lookback_days} days"
                     if total_connections == 0
                     else f"Only {total_connections} connection(s) — below min_connections threshold ({min_connections})"
                 ),
