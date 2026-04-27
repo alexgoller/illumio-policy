@@ -1,5 +1,5 @@
 name: ad | prod
-description: null
+description: ''
 enabled: true
 scopes:
 - - label:
