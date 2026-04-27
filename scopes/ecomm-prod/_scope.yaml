@@ -1,0 +1,6 @@
+name: ecomm-prod
+labels:
+  app: ecomm
+  env: prod
+owners: []
+description: Auto-generated scope for ecomm-prod

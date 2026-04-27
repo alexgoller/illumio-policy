@@ -1,0 +1,17 @@
+name: exchange | prod
+description: null
+enabled: true
+scopes:
+- - label:
+      app: exchange
+  - label:
+      env: prod
+rules:
+- name: /orgs/1/sec_policy/draft/rule_sets/985/sec_rules/1639
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - actors: ams
+  services:
+  - name: All Services

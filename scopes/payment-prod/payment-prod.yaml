@@ -7,7 +7,7 @@ scopes:
   - label:
       env: prod
 rules:
-- name: /orgs/1/sec_policy/active/rule_sets/989/sec_rules/1653
+- name: /orgs/1/sec_policy/draft/rule_sets/989/sec_rules/1653
   enabled: true
   consumers:
   - actors: ams
@@ -15,7 +15,7 @@ rules:
   - actors: ams
   services:
   - name: All Services
-- name: /orgs/1/sec_policy/active/rule_sets/989/sec_rules/1655
+- name: /orgs/1/sec_policy/draft/rule_sets/989/sec_rules/1655
   enabled: true
   consumers:
   - ip_list:
@@ -25,7 +25,7 @@ rules:
       role: web
   services:
   - name: https
-- name: /orgs/1/sec_policy/active/rule_sets/989/sec_rules/1661
+- name: /orgs/1/sec_policy/draft/rule_sets/989/sec_rules/1661
   enabled: true
   consumers:
   - label:
