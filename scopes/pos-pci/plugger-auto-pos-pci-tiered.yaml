@@ -7,7 +7,7 @@ scopes:
   - label:
       env: pci
 rules:
-- name: /orgs/1/sec_policy/active/rule_sets/975/sec_rules/1623
+- name: /orgs/1/sec_policy/draft/rule_sets/975/sec_rules/1623
   enabled: true
   consumers:
   - label:
@@ -17,7 +17,17 @@ rules:
       role: db
   services:
   - name: postgresql
-- name: /orgs/1/sec_policy/active/rule_sets/975/sec_rules/1625
+- name: /orgs/1/sec_policy/draft/rule_sets/975/sec_rules/1641
+  enabled: true
+  consumers:
+  - label:
+      role: processing
+  providers:
+  - label:
+      role: db
+  services:
+  - name: postgresql
+- name: /orgs/1/sec_policy/draft/rule_sets/975/sec_rules/1625
   enabled: true
   consumers:
   - label:
@@ -28,7 +38,18 @@ rules:
   services:
   - port: 8070
     proto: tcp
-- name: /orgs/1/sec_policy/active/rule_sets/975/sec_rules/1627
+- name: /orgs/1/sec_policy/draft/rule_sets/975/sec_rules/1643
+  enabled: true
+  consumers:
+  - label:
+      role: web
+  providers:
+  - label:
+      role: processing
+  services:
+  - port: 8070
+    proto: tcp
+- name: /orgs/1/sec_policy/draft/rule_sets/975/sec_rules/1627
   enabled: true
   consumers:
   - label:
@@ -39,7 +60,18 @@ rules:
   services:
   - name: mysql
   - name: postgresql
-- name: /orgs/1/sec_policy/active/rule_sets/975/sec_rules/1629
+- name: /orgs/1/sec_policy/draft/rule_sets/975/sec_rules/1645
+  enabled: true
+  consumers:
+  - label:
+      role: db
+  providers:
+  - label:
+      role: db
+  services:
+  - name: mysql
+  - name: postgresql
+- name: /orgs/1/sec_policy/draft/rule_sets/975/sec_rules/1629
   enabled: true
   consumers:
   - label:
@@ -50,7 +82,28 @@ rules:
   services:
   - port: 8070
     proto: tcp
-- name: /orgs/1/sec_policy/active/rule_sets/975/sec_rules/1631
+- name: /orgs/1/sec_policy/draft/rule_sets/975/sec_rules/1647
+  enabled: true
+  consumers:
+  - label:
+      role: processing
+  providers:
+  - label:
+      role: processing
+  services:
+  - port: 8070
+    proto: tcp
+- name: /orgs/1/sec_policy/draft/rule_sets/975/sec_rules/1631
+  enabled: true
+  consumers:
+  - label:
+      role: web
+  providers:
+  - label:
+      role: web
+  services:
+  - name: alt-http
+- name: /orgs/1/sec_policy/draft/rule_sets/975/sec_rules/1649
   enabled: true
   consumers:
   - label:
