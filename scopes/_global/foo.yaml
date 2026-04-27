@@ -2,4 +2,15 @@ name: foo
 description: ''
 enabled: true
 scopes: []
-rules: []
+rules:
+- name: 'All Workloads → ad,prod : https'
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - label:
+      app: ad
+  - label:
+      env: prod
+  services:
+  - name: https
