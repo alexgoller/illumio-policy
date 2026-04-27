@@ -122,11 +122,14 @@ def extract_rules_from_file(filepath):
                 if isinstance(lbl, dict):
                     scope_labels.update(lbl)
 
+    ruleset_name = data.get("name") or os.path.splitext(os.path.basename(filepath))[0]
+
     rules = []
     for rule in data.get("rules", []):
         if isinstance(rule, dict):
             rules.append({
                 "file": filepath,
+                "ruleset_name": ruleset_name,
                 "name": rule.get("name", "(unnamed)"),
                 "consumers": rule.get("consumers", []),
                 "providers": rule.get("providers", []),
@@ -141,6 +144,7 @@ def extract_rules_from_file(filepath):
         services = data.get("services", [])
         rules.append({
             "file": filepath,
+            "ruleset_name": ruleset_name,
             "name": data.get("name", "(unnamed)"),
             "consumers": consumers,
             "providers": providers,
@@ -294,6 +298,7 @@ def main():
             result = query_traffic_for_rule(pce, rule, scope_cfg, config)
             evidence.append({
                 "file": rule["file"],
+                "ruleset_name": rule["ruleset_name"],
                 "rule_name": rule["name"],
                 "ports": [s.get("port") for s in rule.get("services", []) if isinstance(s, dict) and s.get("port")],
                 **(result or {"traffic_found": False, "reason": "PCE not configured"}),
