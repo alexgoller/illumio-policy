@@ -1,0 +1,17 @@
+name: imaging | prod
+description: null
+enabled: true
+scopes:
+- - label:
+      app: imaging
+  - label:
+      env: prod
+rules:
+- name: /orgs/1/sec_policy/draft/rule_sets/994/sec_rules/1663
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - actors: ams
+  services:
+  - name: All Services
