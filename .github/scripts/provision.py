@@ -10,7 +10,6 @@ Also handles DELETIONS: if a YAML file was removed in the commit,
 the corresponding PCE object is deleted from draft.
 """
 
-import json
 import os
 import sys
 
@@ -76,7 +75,7 @@ def provision_ip_list(pce, filepath, data, label_map):
     name = data["name"]
     body = {
         "name": name,
-        "description": data.get("description", ""),
+        "description": data.get("description") or "",
         "ip_ranges": data.get("ip_ranges", []),
         "fqdns": [{"fqdn": f} if isinstance(f, str) else f for f in data.get("fqdns", [])],
     }
@@ -118,7 +117,7 @@ def provision_ruleset(pce, filepath, data, label_map, svc_map):
 
     body = {
         "name": name,
-        "description": data.get("description", ""),
+        "description": data.get("description") or "",
         "enabled": data.get("enabled", True),
         "scopes": scopes if scopes else [[]],
         "rules": rules,
@@ -136,12 +135,10 @@ def provision_ruleset(pce, filepath, data, label_map, svc_map):
 
 def delete_object(pce, filepath):
     """Handle deleted YAML files — remove corresponding PCE object."""
-    # Infer object name from filename
     basename = os.path.splitext(os.path.basename(filepath))[0]
 
     if filepath.startswith("ip-lists/"):
         existing = pce.get("/sec_policy/draft/ip_lists").json()
-        # Match by sanitized name
         for ipl in existing:
             sanitized = ipl["name"].lower().replace(" ", "-").replace("/", "-")
             if sanitized == basename or ipl["name"] == basename:
