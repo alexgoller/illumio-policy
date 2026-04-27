@@ -1,0 +1,6 @@
+name: payment-prod
+labels:
+  app: payment
+  env: prod
+owners: []
+description: Auto-generated scope for payment-prod
