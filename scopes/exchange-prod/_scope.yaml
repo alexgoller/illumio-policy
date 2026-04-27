@@ -1,0 +1,6 @@
+name: exchange-prod
+labels:
+  app: exchange
+  env: prod
+owners: []
+description: Auto-generated scope for exchange-prod
