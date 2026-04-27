@@ -12,6 +12,15 @@ rules:
       role: time
   services:
   - name: ntp
+- name: 'All Workloads → time : ntp'
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - label:
+      role: time
+  services:
+  - name: ntp
 - name: 'All Workloads → syslog,soc : syslog'
   enabled: true
   consumers:
@@ -23,6 +32,28 @@ rules:
       app: soc
   services:
   - name: syslog
+- name: 'All Workloads → syslog,soc : syslog'
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - label:
+      role: syslog
+  - label:
+      app: soc
+  services:
+  - name: syslog
+- name: 'nagios,monitoring → All Workloads : nagios'
+  enabled: true
+  consumers:
+  - label:
+      role: nagios
+  - label:
+      app: monitoring
+  providers:
+  - actors: ams
+  services:
+  - name: nagios
 - name: 'nagios,monitoring → All Workloads : nagios'
   enabled: true
   consumers:
