@@ -1,0 +1,32 @@
+name: pos | staging
+description: null
+enabled: true
+scopes:
+- - label:
+      app: pos
+  - label:
+      env: staging
+rules:
+- name: /orgs/1/sec_policy/active/rule_sets/983/sec_rules/1635
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - actors: ams
+  services:
+  - name: All Services
+- name: /orgs/1/sec_policy/active/rule_sets/983/sec_rules/1637
+  enabled: true
+  consumers:
+  - label:
+      app: payment
+  - label:
+      env: prod
+  - label:
+      role: db
+  providers:
+  - label:
+      role: db
+  services:
+  - name: postgresql
+  unscoped_consumers: true

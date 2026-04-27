@@ -1,0 +1,24 @@
+name: plugger-infra | jump-infra → All | prod
+description: 'AI Suggested: Infrastructure — jump-infra connects to 4 apps. Consolidated
+  rule.'
+enabled: true
+scopes:
+- - label:
+      env: prod
+rules:
+- name: /orgs/1/sec_policy/active/rule_sets/977/sec_rules/1633
+  enabled: true
+  consumers:
+  - label:
+      app: jump-infra
+  - label:
+      env: prod
+  providers:
+  - actors: ams
+  services:
+  - port: 22
+    proto: tcp
+  - port: 3389
+    proto: udp
+  - port: 3389
+    proto: tcp

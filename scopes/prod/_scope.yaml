@@ -1,0 +1,5 @@
+name: prod
+labels:
+  env: prod
+owners: []
+description: Auto-generated scope for prod

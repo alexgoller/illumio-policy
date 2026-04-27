@@ -1,0 +1,62 @@
+name: plugger-auto | pos | pci | tiered
+description: 'AI Suggested: Application Tiered — role-to-role per app tier'
+enabled: true
+scopes:
+- - label:
+      app: pos
+  - label:
+      env: pci
+rules:
+- name: /orgs/1/sec_policy/active/rule_sets/975/sec_rules/1623
+  enabled: true
+  consumers:
+  - label:
+      role: processing
+  providers:
+  - label:
+      role: db
+  services:
+  - name: postgresql
+- name: /orgs/1/sec_policy/active/rule_sets/975/sec_rules/1625
+  enabled: true
+  consumers:
+  - label:
+      role: web
+  providers:
+  - label:
+      role: processing
+  services:
+  - port: 8070
+    proto: tcp
+- name: /orgs/1/sec_policy/active/rule_sets/975/sec_rules/1627
+  enabled: true
+  consumers:
+  - label:
+      role: db
+  providers:
+  - label:
+      role: db
+  services:
+  - name: mysql
+  - name: postgresql
+- name: /orgs/1/sec_policy/active/rule_sets/975/sec_rules/1629
+  enabled: true
+  consumers:
+  - label:
+      role: processing
+  providers:
+  - label:
+      role: processing
+  services:
+  - port: 8070
+    proto: tcp
+- name: /orgs/1/sec_policy/active/rule_sets/975/sec_rules/1631
+  enabled: true
+  consumers:
+  - label:
+      role: web
+  providers:
+  - label:
+      role: web
+  services:
+  - name: alt-http
