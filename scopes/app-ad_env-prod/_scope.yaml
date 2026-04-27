@@ -1,0 +1,6 @@
+name: app-ad_env-prod
+labels:
+  app: ad
+  env: prod
+owners: []
+description: Auto-generated scope for app-ad_env-prod

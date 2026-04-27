@@ -1,0 +1,6 @@
+name: app-ordering_env-prod
+labels:
+  app: ordering
+  env: prod
+owners: []
+description: Auto-generated scope for app-ordering_env-prod

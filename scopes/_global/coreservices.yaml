@@ -42,7 +42,7 @@ deny_rules:
       app: laptop
   providers:
   - label_group:
-      href: /orgs/1/sec_policy/active/label_groups/f05e1114-4975-481c-9bc1-a34444e53718
+      href: /orgs/1/sec_policy/draft/label_groups/f05e1114-4975-481c-9bc1-a34444e53718
   services:
   - name: https
   type: deny
