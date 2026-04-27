@@ -1,0 +1,17 @@
+name: pos | pci
+description: null
+enabled: true
+scopes:
+- - label:
+      app: pos
+  - label:
+      env: pci
+rules:
+- name: 'All Workloads → All Workloads : All Services'
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - actors: ams
+  services:
+  - name: All Services

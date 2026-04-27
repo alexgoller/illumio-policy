@@ -1,0 +1,6 @@
+name: app-pos_env-pci
+labels:
+  app: pos
+  env: pci
+owners: []
+description: Auto-generated scope for app-pos_env-pci

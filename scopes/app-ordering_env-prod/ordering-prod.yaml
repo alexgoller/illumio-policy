@@ -1,0 +1,17 @@
+name: ordering | prod
+description: null
+enabled: true
+scopes:
+- - label:
+      app: ordering
+  - label:
+      env: prod
+rules:
+- name: 'All Workloads → All Workloads : All Services'
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - actors: ams
+  services:
+  - name: All Services
