@@ -44,16 +44,17 @@ jobs:
           fi
 
       - name: Setup Python
-        if: steps.changes.outputs.count != '0' && steps.bot.outputs.skip != 'true'
+        if: steps.changes.outputs.count != '0'
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
       - name: Install dependencies
-        if: steps.changes.outputs.count != '0' && steps.bot.outputs.skip != 'true'
+        if: steps.changes.outputs.count != '0'
         run: pip install illumio pyyaml
 
       - name: Provision to PCE (draft + active)
+        if: steps.changes.outputs.count != '0'
         if: steps.changes.outputs.count != '0' && steps.bot.outputs.skip != 'true'
         env:
           PCE_HOST: ${{ secrets.PCE_HOST }}
