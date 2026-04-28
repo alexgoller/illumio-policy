@@ -40,7 +40,7 @@ jobs:
         if: steps.changes.outputs.count != '0'
         run: pip install illumio pyyaml
 
-      - name: Provision to PCE draft
+      - name: Provision to PCE (draft + active)
         if: steps.changes.outputs.count != '0'
         env:
           PCE_HOST: ${{ secrets.PCE_HOST }}
@@ -48,14 +48,6 @@ jobs:
           PCE_ORG_ID: ${{ secrets.PCE_ORG_ID }}
           PCE_API_KEY: ${{ secrets.PCE_API_KEY }}
           PCE_API_SECRET: ${{ secrets.PCE_API_SECRET }}
-          CHANGED_FILES: ${{ steps.changes.outputs.files }}
-          # Pass the merge commit message as the PCE provision description so
-          # the active policy history shows the PR title rather than a generic count.
-          PROVISION_DESCRIPTION: ${{ github.event.head_commit.message }}
-          # Set to "false" to leave changes in draft for manual review.
           AUTO_PROVISION: "true"
+          CHANGED_FILES: ${{ steps.changes.outputs.files }}
         run: python3 .github/scripts/provision.py
-
-      - name: Summary
-        if: always()
-        run: echo "Provision complete — check PCE active policy"

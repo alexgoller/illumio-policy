@@ -1,11 +1,11 @@
-name: pos | pci
+name: pos | staging
 description: ''
 enabled: true
 scopes:
 - - label:
       app: pos
   - label:
-      env: pci
+      env: staging
 rules:
 - name: 'All Workloads → All Workloads : All Services'
   enabled: true
