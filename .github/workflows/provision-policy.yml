@@ -30,6 +30,19 @@ jobs:
           COUNT=$(echo "$CHANGED" | grep -c '.' || true)
           echo "count=$COUNT" >> $GITHUB_OUTPUT
 
+      - name: Check for bot export commit
+        id: bot
+        run: |
+          MSG=$(git log --no-merges -1 --format='%s' 2>/dev/null || git log -1 --format='%s')
+          AUTHOR=$(git log --no-merges -1 --format='%an' 2>/dev/null || git log -1 --format='%an')
+          if [[ "$MSG" == policy-gitops:* ]] || [[ "$AUTHOR" == "policy-gitops" ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "Skipping: bot export commit (author=$AUTHOR)"
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+            echo "Human commit — will provision (author=$AUTHOR)"
+          fi
+
       - name: Setup Python
         if: steps.changes.outputs.count != '0'
         uses: actions/setup-python@v5
@@ -42,6 +55,7 @@ jobs:
 
       - name: Provision to PCE (draft + active)
         if: steps.changes.outputs.count != '0'
+        if: steps.changes.outputs.count != '0' && steps.bot.outputs.skip != 'true'
         env:
           PCE_HOST: ${{ secrets.PCE_HOST }}
           PCE_PORT: ${{ secrets.PCE_PORT }}
