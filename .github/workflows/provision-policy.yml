@@ -30,19 +30,6 @@ jobs:
           COUNT=$(echo "$CHANGED" | grep -c '.' || true)
           echo "count=$COUNT" >> $GITHUB_OUTPUT
 
-      - name: Check for bot export commit
-        id: bot
-        run: |
-          MSG=$(git log --no-merges -1 --format='%s' 2>/dev/null || git log -1 --format='%s')
-          AUTHOR=$(git log --no-merges -1 --format='%an' 2>/dev/null || git log -1 --format='%an')
-          if [[ "$MSG" == policy-gitops:* ]] || [[ "$AUTHOR" == "policy-gitops" ]]; then
-            echo "skip=true" >> $GITHUB_OUTPUT
-            echo "Skipping: bot export commit (author=$AUTHOR)"
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-            echo "Human commit — will provision (author=$AUTHOR)"
-          fi
-
       - name: Setup Python
         if: steps.changes.outputs.count != '0'
         uses: actions/setup-python@v5
@@ -53,15 +40,19 @@ jobs:
         if: steps.changes.outputs.count != '0'
         run: pip install illumio pyyaml
 
-      - name: Provision to PCE (draft + active)
+      - name: Provision to PCE
         if: steps.changes.outputs.count != '0'
-        if: steps.changes.outputs.count != '0' && steps.bot.outputs.skip != 'true'
         env:
           PCE_HOST: ${{ secrets.PCE_HOST }}
           PCE_PORT: ${{ secrets.PCE_PORT }}
           PCE_ORG_ID: ${{ secrets.PCE_ORG_ID }}
           PCE_API_KEY: ${{ secrets.PCE_API_KEY }}
           PCE_API_SECRET: ${{ secrets.PCE_API_SECRET }}
-          AUTO_PROVISION: "true"
           CHANGED_FILES: ${{ steps.changes.outputs.files }}
+          PROVISION_DESCRIPTION: ${{ github.event.head_commit.message }}
+          AUTO_PROVISION: "true"
         run: python3 .github/scripts/provision.py
+
+      - name: Summary
+        if: always()
+        run: echo "Provision complete — check PCE active policy"
