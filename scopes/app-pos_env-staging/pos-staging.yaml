@@ -7,11 +7,11 @@ scopes:
   - label:
       env: staging
 rules:
-- name: 'All Workloads → All Workloads : https'
+- name: 'All Workloads → All Workloads : All Services'
   enabled: true
   consumers:
   - actors: ams
   providers:
   - actors: ams
   services:
-  - name: https
+  - name: All Services
