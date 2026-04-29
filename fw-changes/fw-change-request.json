@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-29T08:49:59.863571+00:00",
-  "commit": "b05b5aa1063f63022fd07b5b3d1c4810e3caf019",
+  "generated_at": "2026-04-29T09:58:40.476649+00:00",
+  "commit": "61d9edfb9e40155818548374721e553157795217",
   "pr_title": "policy-gitops: PCE export 2026-04-29",
   "summary": {
     "total_rules": 0,
