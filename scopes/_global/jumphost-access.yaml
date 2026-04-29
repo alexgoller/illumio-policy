@@ -3,8 +3,8 @@ description: ''
 enabled: true
 scopes: []
 rules:
-- name: 'jump-infra,prod,jumpbox → Any (0.0.0.0/0 and ::/0),All Workloads : ssh, ssh,
-    rdp, rdp (extra-scope)'
+- name: 'jump-infra,prod,jumpbox → All Workloads,Any (0.0.0.0/0 and ::/0) : ssh, ssh,
+    rdp, rdp'
   enabled: true
   consumers:
   - label:
@@ -14,9 +14,9 @@ rules:
   - label:
       role: jumpbox
   providers:
+  - actors: ams
   - ip_list:
       name: Any (0.0.0.0/0 and ::/0)
-  - actors: ams
   services:
   - name: ssh
     port: 22
@@ -29,51 +29,4 @@ rules:
     proto: udp
   - name: rdp
     port: 3389
-    proto: tcp
-  unscoped_consumers: true
-- name: 'jump-infra,prod,jumpbox → pos,staging,processing : ssh, ssh'
-  enabled: true
-  consumers:
-  - label:
-      app: jump-infra
-  - label:
-      env: prod
-  - label:
-      role: jumpbox
-  providers:
-  - label:
-      app: pos
-  - label:
-      env: staging
-  - label:
-      role: processing
-  services:
-  - name: ssh
-    port: 22
-    proto: udp
-  - name: ssh
-    port: 22
-    proto: tcp
-- name: 'jump-infra,prod,jumpbox → pos,staging,db : ssh, ssh'
-  enabled: true
-  consumers:
-  - label:
-      app: jump-infra
-  - label:
-      env: prod
-  - label:
-      role: jumpbox
-  providers:
-  - label:
-      app: pos
-  - label:
-      env: staging
-  - label:
-      role: db
-  services:
-  - name: ssh
-    port: 22
-    proto: udp
-  - name: ssh
-    port: 22
     proto: tcp
