@@ -3,13 +3,15 @@ description: ''
 enabled: true
 scopes: []
 rules:
-- name: 'laptop,vdi → jump-infra,prod,jumpbox : ssh, ssh, rdp, rdp'
+- name: 'laptop,vdi,users → jump-infra,prod,jumpbox : ssh, ssh, rdp, rdp'
   enabled: true
   consumers:
   - label:
       app: laptop
   - label:
       app: vdi
+  - label:
+      env: users
   providers:
   - label:
       app: jump-infra
