@@ -71,6 +71,28 @@ def resolve_service(svc, svc_map):
     return svc
 
 
+def dedup_services(services: list) -> list:
+    """Remove duplicate service entries before sending to PCE.
+
+    Two entries are considered duplicates when they share the same href
+    (named service) or the same port+proto pair (inline port).  The PCE
+    rejects rules with duplicate service references with HTTP 406.
+    """
+    seen = set()
+    result = []
+    for svc in services:
+        if not isinstance(svc, dict):
+            result.append(svc)
+            continue
+        key = svc.get("href") or (svc.get("port"), svc.get("proto"))
+        if key not in seen:
+            seen.add(key)
+            result.append(svc)
+        else:
+            print(f"    Warning: duplicate service reference removed: {svc}")
+    return result
+
+
 def provision_ip_list(pce, filepath, data, label_map):
     name = data["name"]
     body = {
@@ -108,7 +130,7 @@ def provision_ruleset(pce, filepath, data, label_map, svc_map):
             "enabled": rule.get("enabled", True),
             "providers": [a for a in (resolve_actor(a, label_map) for a in rule.get("providers", [])) if a],
             "consumers": [a for a in (resolve_actor(a, label_map) for a in rule.get("consumers", [])) if a],
-            "ingress_services": [resolve_service(s, svc_map) for s in rule.get("services", [])],
+            "ingress_services": dedup_services([resolve_service(s, svc_map) for s in rule.get("services", [])]),
             "resolve_labels_as": {"providers": ["workloads"], "consumers": ["workloads"]},
         }
         if rule.get("unscoped_consumers"):
