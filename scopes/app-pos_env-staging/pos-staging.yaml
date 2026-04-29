@@ -1,0 +1,29 @@
+name: pos | staging
+description: ''
+enabled: true
+scopes:
+- - label:
+      app: pos
+  - label:
+      env: staging
+rules:
+- name: 'payment,prod,db → db : postgresql, postgresql (extra-scope)'
+  enabled: true
+  consumers:
+  - label:
+      app: payment
+  - label:
+      env: prod
+  - label:
+      role: db
+  providers:
+  - label:
+      role: db
+  services:
+  - name: postgresql
+    port: 5432
+    proto: udp
+  - name: postgresql
+    port: 5432
+    proto: tcp
+  unscoped_consumers: true
