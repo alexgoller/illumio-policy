@@ -16,3 +16,12 @@ rules:
   services:
   - name: All Services
     proto: '-1'
+- name: 'All Workloads → All Workloads : All Services'
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - actors: ams
+  services:
+  - name: All Services
+    proto: '-1'
