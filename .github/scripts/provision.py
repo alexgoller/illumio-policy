@@ -168,10 +168,18 @@ def provision_to_active(pce, description: str):
     return False
 
 
+def write_report(report: dict, path: str = "provision-report.json"):
+    import json
+    with open(path, "w") as f:
+        json.dump(report, f, indent=2)
+
+
 def main():
     changed_raw = os.environ.get("CHANGED_FILES", "")
     if not changed_raw.strip():
         print("No changed files")
+        write_report({"status": "skipped", "created": 0, "updated": 0, "deleted": 0,
+                      "errors": [], "provisioned_to_active": False, "files": []})
         return
 
     pce = get_pce()
@@ -184,6 +192,7 @@ def main():
     updated = 0
     deleted = 0
     errors = []
+    processed_files = []
 
     for filepath in files:
         if "_scope.yaml" in filepath or ".gitkeep" in filepath:
@@ -197,6 +206,7 @@ def main():
                 action, name = delete_object(pce, filepath)
                 if action == "deleted":
                     deleted += 1
+                    processed_files.append({"file": filepath, "action": "deleted", "name": name})
                     print(f"  Deleted: {name} (file removed: {filepath})")
             except Exception as e:
                 errors.append(f"DELETE {filepath}: {e}")
@@ -227,6 +237,7 @@ def main():
                 created += 1
             elif action == "updated":
                 updated += 1
+            processed_files.append({"file": filepath, "action": action, "name": name})
             print(f"  {action.title()}: {name}")
 
         except Exception as e:
@@ -234,22 +245,54 @@ def main():
 
     total_changes = created + updated + deleted
     print(f"\nResult: {created} created, {updated} updated, {deleted} deleted, {len(errors)} errors")
+
     if errors:
         for e in errors:
             print(f"  ERROR: {e}")
+        write_report({
+            "status": "error",
+            "created": created,
+            "updated": updated,
+            "deleted": deleted,
+            "errors": errors,
+            "provisioned_to_active": False,
+            "files": processed_files,
+        })
         sys.exit(1)
 
     # Promote draft to active unless explicitly disabled.
     # AUTO_PROVISION defaults to true — the script runs on merge, which implies approval.
     auto_provision = os.environ.get("AUTO_PROVISION", "true").lower() not in ("false", "0", "no")
+    provisioned = False
     if auto_provision and total_changes > 0:
         print("\nProvisioning draft to active...")
         commit_msg = os.environ.get("PROVISION_DESCRIPTION",
                                     f"GitOps: {created} created, {updated} updated, {deleted} deleted")
-        if not provision_to_active(pce, commit_msg):
+        provisioned = provision_to_active(pce, commit_msg)
+        if not provisioned:
+            write_report({
+                "status": "error",
+                "created": created,
+                "updated": updated,
+                "deleted": deleted,
+                "errors": ["provision_to_active failed — see logs"],
+                "provisioned_to_active": False,
+                "files": processed_files,
+            })
             sys.exit(1)
     elif not auto_provision:
         print("\nAUTO_PROVISION=false — draft changes left pending for manual review")
+
+    write_report({
+        "status": "success",
+        "created": created,
+        "updated": updated,
+        "deleted": deleted,
+        "errors": [],
+        "provisioned_to_active": provisioned,
+        "auto_provision": auto_provision,
+        "files": processed_files,
+    })
 
 
 if __name__ == "__main__":
