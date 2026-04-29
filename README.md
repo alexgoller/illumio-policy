@@ -1,5 +1,9 @@
 # Illumio Policy
 
+<!-- BADGES_START -->
+![provision](https://img.shields.io/badge/provision-pending-inactive?style=flat-square)
+<!-- BADGES_END -->
+
 Policy-as-code for Illumio PCE. Rulesets, IP lists, and services managed as YAML in Git with automated validation, security checks, traffic evidence, and provisioning.
 
 ## How It Works

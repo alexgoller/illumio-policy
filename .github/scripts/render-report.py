@@ -21,8 +21,42 @@ import argparse
 import json
 import os
 import subprocess
+import urllib.parse
 
 import yaml
+
+
+def _badge(label: str, message: str, color: str) -> str:
+    def _enc(s: str) -> str:
+        return urllib.parse.quote(
+            s.replace("-", "--").replace("_", "__").replace(" ", "_"),
+            safe="",
+        )
+    url = f"https://img.shields.io/badge/{_enc(label)}-{_enc(message)}-{color}?style=flat-square"
+    return f"![{label}]({url})"
+
+
+def _count_rule_changes(files: list, diff_base: str | None) -> tuple[int, int, int]:
+    added = deleted = modified = 0
+    for filepath in files:
+        if not filepath.startswith("scopes/") or not filepath.endswith((".yaml", ".yml")):
+            continue
+        current_data: dict = {}
+        if os.path.exists(filepath):
+            try:
+                with open(filepath) as f:
+                    current_data = yaml.safe_load(f) or {}
+            except Exception:
+                pass
+        base_data = _get_base_data(filepath, diff_base) if diff_base else None
+        for change_type in _diff_rules(base_data, current_data).values():
+            if change_type == "added":
+                added += 1
+            elif change_type == "deleted":
+                deleted += 1
+            elif change_type == "modified":
+                modified += 1
+    return added, deleted, modified
 
 
 def _load_json(path: str) -> dict:
@@ -85,7 +119,7 @@ def _fmt_evidence(ev: dict) -> tuple[str, str]:
     if ev.get("traffic_found"):
         conns = ev.get("blocked_connections", 0)
         sources = ev.get("unique_sources", 0)
-        return "✅", f"{conns:,} blocked · {sources} src"
+        return "✅", f"traffic found ({conns:,} blocked · {sources} src)"
     reason = (ev.get("reason") or ev.get("error") or "No evidence").rstrip(".")
     if len(reason) > 55:
         reason = reason[:52] + "…"
@@ -205,21 +239,50 @@ def render(
 
     lines = []
 
+    # ── Badge strip ──────────────────────────────────────────────────────────
+    r_added, r_deleted, r_modified = _count_rule_changes(files, diff_base)
+
+    badge_parts = []
+
+    # PR status
+    if ss.get("blocked"):
+        badge_parts.append(_badge("PR", "BLOCKED", "critical"))
+    else:
+        badge_parts.append(_badge("PR", "clear to merge", "success"))
+
+    # Rule changes
+    if r_added:
+        badge_parts.append(_badge("rules", f"+{r_added} added", "brightgreen"))
+    if r_deleted:
+        badge_parts.append(_badge("rules", f"-{r_deleted} deleted", "red"))
+    if r_modified:
+        badge_parts.append(_badge("rules", f"~{r_modified} modified", "yellow"))
+    if not (r_added or r_deleted or r_modified):
+        badge_parts.append(_badge("rules", "no changes", "inactive"))
+
+    # Security
+    crit = ss.get("critical", 0)
+    high = ss.get("high", 0)
+    med  = ss.get("medium", 0)
+    if crit:
+        badge_parts.append(_badge("security", f"{crit} critical", "critical"))
+    if high:
+        badge_parts.append(_badge("security", f"{high} high", "orange"))
+    if med:
+        badge_parts.append(_badge("security", f"{med} medium", "yellow"))
+    if not (crit or high or med):
+        badge_parts.append(_badge("security", "clear", "success"))
+
+    # Traffic
+    total_rules = ts.get("total_rules", 0)
+    justified   = ts.get("justified", 0)
+    if total_rules:
+        t_color = "success" if justified == total_rules else ("yellow" if justified > 0 else "orange")
+        badge_parts.append(_badge("traffic", f"{justified}/{total_rules} justified", t_color))
+
     # ── Header ──────────────────────────────────────────────────────────────
     lines.append("## 🔒 Policy Change Report\n")
-
-    summary_parts = [f"**{len(files)} file{'s' if len(files) != 1 else ''} changed**"]
-    if ss.get("critical", 0):
-        summary_parts.append(f"**{ss['critical']} critical ❌**")
-    if ss.get("high", 0):
-        summary_parts.append(f"**{ss['high']} high ⚠️**")
-    if ss.get("medium", 0):
-        summary_parts.append(f"{ss['medium']} medium 🔵")
-    total_rules = ts.get("total_rules", 0)
-    if total_rules:
-        justified = ts.get("justified", 0)
-        summary_parts.append(f"**{justified}/{total_rules} rules justified**")
-    lines.append(" · ".join(summary_parts) + "\n")
+    lines.append("  ".join(badge_parts) + "\n")
     lines.append("---\n")
 
     # ── Per-file sections ────────────────────────────────────────────────────
@@ -436,10 +499,15 @@ def render(
         # ── Security findings callout ─────────────────────────────────────────
         if file_findings:
             for f in file_findings:
-                icon = "❌" if f["action"] == "block" else "⚠️"
+                if f["action"] == "block":
+                    icon = "❌"
+                    pr_impact = " — **blocks this PR**"
+                else:
+                    icon = "⚠️"
+                    pr_impact = " — _potentially blocks this PR_"
                 rule_ref = f.get("context", "")
-                ctx = f" — _{rule_ref}_" if rule_ref else ""
-                lines.append(f"> {icon} **{f['rule_id']}** `{f['severity']}` — {f['message']}{ctx}")
+                ctx = f" · _{rule_ref}_" if rule_ref else ""
+                lines.append(f"> {icon} **{f['rule_id']}** `{f['severity']}` — {f['message']}{pr_impact}{ctx}")
             lines.append("")
 
         lines.append("---\n")
@@ -447,7 +515,7 @@ def render(
     # ── Footer summary table ─────────────────────────────────────────────────
     lines.append("### Summary\n")
     status_icon = "❌" if ss.get("blocked") else "✅"
-    status_text = "**BLOCKED** — critical findings require resolution" if ss.get("blocked") else "Clear to merge"
+    status_text = "**BLOCKED** — critical findings detected, this PR cannot merge" if ss.get("blocked") else "Clear to merge"
 
     lines.append("| | | |")
     lines.append("|:---:|---|---|")
@@ -458,12 +526,14 @@ def render(
     high = ss.get("high", 0)
     med = ss.get("medium", 0)
     if crit or high or med:
-        sec_text = " · ".join(filter(None, [
-            f"{crit} critical" if crit else "",
-            f"{high} high" if high else "",
-            f"{med} medium" if med else "",
-        ]))
-        lines.append(f"| 🛡️ | Security findings | {sec_text} |")
+        sec_parts = []
+        if crit:
+            sec_parts.append(f"{crit} critical — **blocks this PR**")
+        if high:
+            sec_parts.append(f"{high} high — _potentially blocks this PR_")
+        if med:
+            sec_parts.append(f"{med} medium — _potentially blocks this PR_")
+        lines.append(f"| 🛡️ | Security findings | {' · '.join(sec_parts)} |")
     else:
         lines.append("| 🛡️ | Security | All checks passed |")
 
