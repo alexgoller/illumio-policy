@@ -9,7 +9,7 @@ on:
       - 'services/**'
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
@@ -146,6 +146,19 @@ jobs:
             });
 
             console.log(`Posted provision status on PR #${pr.number}`);
+
+      - name: Update README badges
+        if: steps.changes.outputs.count != '0'
+        run: |
+          python3 .github/scripts/update-badges.py \
+            --report provision-report.json \
+            --readme README.md
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --staged --quiet || \
+            git commit -m "chore: update policy badges [skip ci]" && \
+            git push
 
       - name: Fail if provision errored
         if: steps.provision.outcome == 'failure'
