@@ -7,7 +7,7 @@ scopes:
   - label:
       env: prod
 rules:
-- name: 'laptop,users,employee → dc : kerberoauth (extra-scope)'
+- name: 'laptop,users,employee → dc : kerberoauth, kerberoauth (extra-scope)'
   enabled: true
   consumers:
   - label:
@@ -21,6 +21,11 @@ rules:
       role: dc
   services:
   - name: kerberoauth
+    port: 88
+    proto: udp
+  - name: kerberoauth
+    port: 88
+    proto: tcp
   unscoped_consumers: true
 - name: 'All Workloads → All Workloads : All Services'
   enabled: true
@@ -30,8 +35,9 @@ rules:
   - actors: ams
   services:
   - name: All Services
-- name: 'exchange,prod,mailserver → dc : smb, high-tcp-ports, ldap, dns, kerberoauth,
-    MSFT Domain Controllers, ntp (extra-scope)'
+    proto: '-1'
+- name: 'exchange,prod,mailserver → dc : smb, smb, high-tcp-ports, ldap, ldap, dns,
+    dns, kerberoauth, kerberoauth, MSFT Domain Controllers, ntp, ntp (extra-scope)'
   enabled: true
   consumers:
   - label:
@@ -45,15 +51,45 @@ rules:
       role: dc
   services:
   - name: smb
+    port: 445
+    proto: tcp
+  - name: smb
+    port: 445
+    proto: udp
   - name: high-tcp-ports
+    port: 49152
+    to_port: 65535
+    proto: tcp
   - name: ldap
+    port: 389
+    proto: tcp
+  - name: ldap
+    port: 389
+    proto: udp
   - name: dns
+    port: 53
+    proto: tcp
+  - name: dns
+    port: 53
+    proto: udp
   - name: kerberoauth
+    port: 88
+    proto: udp
+  - name: kerberoauth
+    port: 88
+    proto: tcp
   - name: MSFT Domain Controllers
+    port: 135
+    proto: tcp
   - name: ntp
+    port: 123
+    proto: tcp
+  - name: ntp
+    port: 123
+    proto: udp
   unscoped_consumers: true
-- name: 'exchange,prod,edgetransport → dc : ldap, high-tcp-ports, dns, smb, ntp, kerberoauth,
-    MSFT Domain Controllers (extra-scope)'
+- name: 'exchange,prod,edgetransport → dc : ldap, ldap, high-tcp-ports, dns, dns,
+    smb, smb, ntp, ntp, kerberoauth, kerberoauth, MSFT Domain Controllers (extra-scope)'
   enabled: true
   consumers:
   - label:
@@ -67,10 +103,40 @@ rules:
       role: dc
   services:
   - name: ldap
+    port: 389
+    proto: tcp
+  - name: ldap
+    port: 389
+    proto: udp
   - name: high-tcp-ports
+    port: 49152
+    to_port: 65535
+    proto: tcp
   - name: dns
+    port: 53
+    proto: tcp
+  - name: dns
+    port: 53
+    proto: udp
   - name: smb
+    port: 445
+    proto: tcp
+  - name: smb
+    port: 445
+    proto: udp
   - name: ntp
+    port: 123
+    proto: tcp
+  - name: ntp
+    port: 123
+    proto: udp
   - name: kerberoauth
+    port: 88
+    proto: udp
+  - name: kerberoauth
+    port: 88
+    proto: tcp
   - name: MSFT Domain Controllers
+    port: 135
+    proto: tcp
   unscoped_consumers: true

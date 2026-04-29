@@ -15,3 +15,4 @@ rules:
   - actors: ams
   services:
   - name: All Services
+    proto: '-1'

@@ -12,3 +12,4 @@ rules:
       name: Any (0.0.0.0/0 and ::/0)
   services:
   - name: All Services
+    proto: '-1'
