@@ -3,6 +3,33 @@ description: ''
 enabled: true
 scopes: []
 rules:
+- name: 'laptop,vdi → jump-infra,prod,jumpbox : ssh, ssh, rdp, rdp'
+  enabled: true
+  consumers:
+  - label:
+      app: laptop
+  - label:
+      app: vdi
+  providers:
+  - label:
+      app: jump-infra
+  - label:
+      env: prod
+  - label:
+      role: jumpbox
+  services:
+  - name: ssh
+    port: 22
+    proto: udp
+  - name: ssh
+    port: 22
+    proto: tcp
+  - name: rdp
+    port: 3389
+    proto: udp
+  - name: rdp
+    port: 3389
+    proto: tcp
 - name: 'jump-infra,prod,jumpbox → All Workloads,Any (0.0.0.0/0 and ::/0) : ssh, ssh,
     rdp, rdp'
   enabled: true
