@@ -7,26 +7,6 @@ scopes:
   - label:
       env: prod
 rules:
-- name: 'laptop,users,employee → dc : kerberoauth, kerberoauth (extra-scope)'
-  enabled: true
-  consumers:
-  - label:
-      app: laptop
-  - label:
-      env: users
-  - label:
-      role: employee
-  providers:
-  - label:
-      role: dc
-  services:
-  - name: kerberoauth
-    port: 88
-    proto: udp
-  - name: kerberoauth
-    port: 88
-    proto: tcp
-  unscoped_consumers: true
 - name: 'All Workloads → All Workloads : All Services'
   enabled: true
   consumers:
