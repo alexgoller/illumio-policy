@@ -2,6 +2,7 @@
   "generated_at": "2026-04-29T08:35:01.694190+00:00",
   "commit": "00d466beca9690cae7aed50649bf3ce00dd63ab1",
   "pr_title": "policy-gitops: PCE export 2026-04-29",
+  "scope_file": "scopes/_global/jumphost-access.yaml",
   "summary": {
     "total_rules": 2,
     "added": 1,
