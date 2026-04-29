@@ -3,7 +3,7 @@ description: ''
 enabled: true
 scopes: []
 rules:
-- name: 'All Workloads → time : ntp'
+- name: 'All Workloads → time : ntp, ntp'
   enabled: true
   consumers:
   - actors: ams
@@ -12,7 +12,12 @@ rules:
       role: time
   services:
   - name: ntp
-- name: 'All Workloads → time : ntp'
+    port: 123
+    proto: tcp
+  - name: ntp
+    port: 123
+    proto: udp
+- name: 'All Workloads → time : ntp, ntp'
   enabled: true
   consumers:
   - actors: ams
@@ -21,7 +26,12 @@ rules:
       role: time
   services:
   - name: ntp
-- name: 'All Workloads → syslog,soc : syslog'
+    port: 123
+    proto: tcp
+  - name: ntp
+    port: 123
+    proto: udp
+- name: 'All Workloads → syslog,soc : syslog, syslog'
   enabled: true
   consumers:
   - actors: ams
@@ -32,7 +42,12 @@ rules:
       app: soc
   services:
   - name: syslog
-- name: 'All Workloads → syslog,soc : syslog'
+    port: 514
+    proto: udp
+  - name: syslog
+    port: 514
+    proto: tcp
+- name: 'All Workloads → syslog,soc : syslog, syslog'
   enabled: true
   consumers:
   - actors: ams
@@ -43,6 +58,11 @@ rules:
       app: soc
   services:
   - name: syslog
+    port: 514
+    proto: udp
+  - name: syslog
+    port: 514
+    proto: tcp
 - name: 'nagios,monitoring → All Workloads : nagios'
   enabled: true
   consumers:
@@ -54,6 +74,8 @@ rules:
   - actors: ams
   services:
   - name: nagios
+    port: 5666
+    proto: tcp
 - name: 'nagios,monitoring → All Workloads : nagios'
   enabled: true
   consumers:
@@ -65,6 +87,8 @@ rules:
   - actors: ams
   services:
   - name: nagios
+    port: 5666
+    proto: tcp
 deny_rules:
 - name: 'laptop → label-group : https'
   enabled: true
@@ -73,7 +97,9 @@ deny_rules:
       app: laptop
   providers:
   - label_group:
-      href: /orgs/1/sec_policy/draft/label_groups/f05e1114-4975-481c-9bc1-a34444e53718
+      name: All my business apps
   services:
   - name: https
+    port: 443
+    proto: tcp
   type: deny
