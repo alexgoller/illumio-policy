@@ -1,0 +1,68 @@
+name: plugger-auto | pos | staging | tiered
+description: 'AI Suggested: Application Tiered — role-to-role per app tier'
+enabled: true
+scopes:
+- - label:
+      app: pos
+  - label:
+      env: staging
+rules:
+- name: 'processing → db : postgresql, postgresql, mysql, http'
+  enabled: true
+  consumers:
+  - label:
+      role: processing
+  providers:
+  - label:
+      role: db
+  services:
+  - name: postgresql
+    port: 5432
+    proto: udp
+  - name: postgresql
+    port: 5432
+    proto: tcp
+  - name: mysql
+    port: 3306
+    proto: tcp
+  - name: http
+    port: 80
+    proto: tcp
+- name: 'db → db : postgresql, postgresql'
+  enabled: true
+  consumers:
+  - label:
+      role: db
+  providers:
+  - label:
+      role: db
+  services:
+  - name: postgresql
+    port: 5432
+    proto: udp
+  - name: postgresql
+    port: 5432
+    proto: tcp
+- name: 'web → processing : 8070/tcp'
+  enabled: true
+  consumers:
+  - label:
+      role: web
+  providers:
+  - label:
+      role: processing
+  services:
+  - port: 8070
+    proto: tcp
+- name: 'web → web : alt-http'
+  enabled: true
+  consumers:
+  - label:
+      role: web
+  providers:
+  - label:
+      role: web
+  services:
+  - name: alt-http
+    port: 8080
+    proto: tcp
