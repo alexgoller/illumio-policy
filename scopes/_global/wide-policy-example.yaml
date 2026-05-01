@@ -1,0 +1,18 @@
+name: Wide policy example
+description: ''
+enabled: true
+scopes: []
+rules:
+- name: 'All Workloads → All Workloads : ssh, ssh'
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - actors: ams
+  services:
+  - name: ssh
+    port: 22
+    proto: udp
+  - name: ssh
+    port: 22
+    proto: tcp

@@ -1,0 +1,31 @@
+name: plugger-review | pos | staging | FOR REVIEW
+description: 'AI Suggested: FLAGGED — contains insecure/risky protocols. Review before
+  provisioning.'
+enabled: true
+scopes:
+- - label:
+      app: pos
+  - label:
+      env: staging
+rules:
+- name: 'All Workloads → All Workloads : ftp-control, ftp-data, rdp, rdp, 138/tcp'
+  enabled: true
+  consumers:
+  - actors: ams
+  providers:
+  - actors: ams
+  services:
+  - name: ftp-control
+    port: 21
+    proto: tcp
+  - name: ftp-data
+    port: 20
+    proto: tcp
+  - name: rdp
+    port: 3389
+    proto: udp
+  - name: rdp
+    port: 3389
+    proto: tcp
+  - port: 138
+    proto: tcp
